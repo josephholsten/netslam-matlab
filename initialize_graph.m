@@ -1,3 +1,5 @@
 function initialize_graph(configuration)
 
-// TODO
+global graph;
+
+graph = SlamGraph(configuration);

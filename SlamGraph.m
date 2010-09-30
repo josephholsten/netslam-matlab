@@ -6,6 +6,7 @@ classdef SlamGraph
   properties
     nodes % Array of nodes in the graph
     edges % Array of edges in the graph
+    model % Dynamic model
     configuration % Configuration settings
   end
   
@@ -14,6 +15,7 @@ classdef SlamGraph
     function obj = SlamGraph(configuration)
       if nargin > 0
         obj.configuration = configuration;
+        obj.model = SlamModel(configuration);
         obj.nodes = [];
         obj.edges = [];
       end
