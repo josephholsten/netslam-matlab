@@ -35,6 +35,8 @@ end
 
 M = max(n, m);
 
+figure
+
 for k = 1:n                                % plot results
   subplot(M, 3, k*3-2)
   plot(1:N, sV(k,:), '-', 1:N, xV(k,:), '--')

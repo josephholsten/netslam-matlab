@@ -14,16 +14,13 @@ R2 = vrrotvec2mat([0 1 0 pi/4]');
 t1 = [0 0 2]';
 t2 = [-2 0 4]';
 
-C1 = [R1 t1; zeros(1,3) 1]
-C2 = [R2 t2; zeros(1,3) 1]
+C1 = [R1 t1; zeros(1,3) 1];
+C2 = [R2 t2; zeros(1,3) 1];
 
 T = create_patch_transform(C1,C2,u,v);
 [I2,x,y] = warp_image_patch(T,I1,u,v);
 
-display(u)
-display(v)
-display(x)
-display(y)
+figure
 
 subplot(1,2,1)
 imshow(I1)
