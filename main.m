@@ -1,5 +1,5 @@
-configuration = ?; // ?
-frames = ?; // [image, timestamp; ...]
+configuration = ?; % ?
+frames = ?; % [image, timestamp; ...]
 
 initialize_graph(configuration);
 [image, timestamp] = frames(1);
