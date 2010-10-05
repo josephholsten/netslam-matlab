@@ -75,7 +75,8 @@ classdef Camera
       k1 = cam.distortion(1);
       k2 = cam.distortion(2);
       c = repmat(cam.center, 1, m);
-      f = repmat(cam.focal, 1, m);
+      %f = repmat(cam.focal, 1, m);
+      f = ones(n,m);
       p = (u - c) .* f;
       ru = sqrt([1 1] * (p .* p));
       rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
@@ -99,7 +100,8 @@ classdef Camera
       k1 = cam.distortion(1);
       k2 = cam.distortion(2);
       c = repmat(cam.center, 1, m);
-      f = repmat(cam.focal, 1, m);
+      %f = repmat(cam.focal, 1, m);
+      f = ones(n,m);
       p = (v - c) .* f;
       r = sqrt([1 1] * (p .* p));
       D = 1 + k1 * r.^2 + k2 * r.^4;
