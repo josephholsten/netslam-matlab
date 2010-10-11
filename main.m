@@ -1,6 +1,7 @@
 configuration = ?; % ?
 frames = ?; % [image, timestamp; ...]
 
+
 initialize_graph(configuration);
 [image, timestamp] = frames(1);
 process_frame(image);

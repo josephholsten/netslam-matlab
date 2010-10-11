@@ -1,7 +1,7 @@
 classdef Camera
   % Represents a pinhole-model camera with distortion.
   % This class does not model the position, orientation, etc. of the camera.
-  
+
   properties
     focal
     center
@@ -71,23 +71,26 @@ classdef Camera
       % 
       % u: undistorted points
       % v: distorted points
-      [n m] = size(u);
-      k1 = cam.distortion(1);
-      k2 = cam.distortion(2);
-      c = repmat(cam.center, 1, m);
-      %f = repmat(cam.focal, 1, m);
-      f = ones(n,m);
-      p = (u - c) .* f;
-      ru = sqrt([1 1] * (p .* p));
-      rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
-      for k=1:10
-        q = rd + k1 * rd.^3 + k2 * rd.^5 - ru;
-        q_p = 1 + 3 * k1 * rd.^2 + 5 * k2 * rd.^4;
-        rd = rd - q ./ q_p;
-      end
-      D = 1 + k1 * rd.^2 + k2 * rd.^4;
-      D = repmat(D, n, 1);
-      v = p ./ (D .* f) + c;
+      global config;
+      %if config.enable_distortion
+        [n m] = size(u);
+        k1 = cam.distortion(1);
+        k2 = cam.distortion(2);
+        c = repmat(cam.center, 1, m);
+        p = u - c;
+        ru = sqrt([1 1] * (p .* p));
+        rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
+        for k=1:10
+          q = rd + k1 * rd.^3 + k2 * rd.^5 - ru;
+          q_p = 1 + 3 * k1 * rd.^2 + 5 * k2 * rd.^4;
+          rd = rd - q ./ q_p;
+        end
+        D = 1 + k1 * rd.^2 + k2 * rd.^4;
+        D = repmat(D, n, 1);
+        v = p ./ D + c;
+      %else
+      %  v = u;
+      %end
     end
     
     
@@ -96,17 +99,20 @@ classdef Camera
       %
       % v: distorted points
       % u: undistorted points    
-      [n m] = size(v);
-      k1 = cam.distortion(1);
-      k2 = cam.distortion(2);
-      c = repmat(cam.center, 1, m);
-      %f = repmat(cam.focal, 1, m);
-      f = ones(n,m);
-      p = (v - c) .* f;
-      r = sqrt([1 1] * (p .* p));
-      D = 1 + k1 * r.^2 + k2 * r.^4;
-      D = repmat(D, n, 1);
-      u = p .* D ./ f + c;
+      global config;
+      %if config.enable_distortion
+        [n m] = size(v);
+        k1 = cam.distortion(1);
+        k2 = cam.distortion(2);
+        c = repmat(cam.center, 1, m);
+        p = v - c;
+        r = sqrt([1 1] * (p .* p));
+        D = 1 + k1 * r.^2 + k2 * r.^4;
+        D = repmat(D, n, 1);
+        u = p .* D + c;
+      %else
+      %  u = v;
+      %end
     end
   end
 end

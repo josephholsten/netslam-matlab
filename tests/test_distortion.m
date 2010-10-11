@@ -1,8 +1,5 @@
 function test_distortion
 
-clear all
-close all
-
 c = Camera(rand(1,2), rand(2,1), rand(1,5));
 u = rand(2,10);
 v = c.distort(u);
