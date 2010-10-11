@@ -1,0 +1,5 @@
+To run the tests:
+
+$ matlab -nodesktop -nosplash
+>> cd netslam-matlab
+>> test
