@@ -1,15 +1,17 @@
-function success = select_new_landmarks(frame)
+function new_landmarks = select_new_landmarks(frame, old_landmarks)
 
 global config;
 
 % Precondition: current landmarks should be predicted by now
 
 % TODO: initialize these from state
-old_landmarks = ...;
-num_old_landmarks = ...;
-num_required_landmarks = ...;
+new_landmarks = [];
+num_old_landmarks = size(old_landmarks, 2);
+num_required_landmarks = config.required_landmarks_per_frame;
 total_landmarks = num_old_landmarks;
 attempts = 0;
+num_aborted_searches = 0;
+num_failed_searches = 0;
 
 while total_landmarks < num_required_landmarks
   % quit if we've surpassed max attempts
@@ -22,15 +24,19 @@ while total_landmarks < num_required_landmarks
   uv = random_landmark_search_coords();
   inside = points_inside_region(old_landmarks, uv, config.landmark_search_size);
   if (size(inside, 2) ~= 0)
+    num_aborted_searches = num_aborted_searches + 1;
     continue;
   end
 
   % append the new landmark, if one was found
-  [uv, found] = select_new_landmark_in_search_window(frame, uv)
+  [uv, found] = select_new_landmark_in_search_window(frame, uv);
   if (found)
-    initialize_new_landmark(uv);
+    initialize_new_landmark(frame, uv);
     old_landmarks = [old_landmarks,uv];
+    new_landmarks = [new_landmarks,uv];
     total_landmarks = total_landmarks + 1;
+  else
+    num_failed_searches = num_failed_searches + 1;
   end
 end
 

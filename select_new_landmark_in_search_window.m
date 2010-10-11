@@ -1,12 +1,15 @@
 function [uv, found] = select_new_landmark_in_search_window(frame, uv)
 
+global config;
+global base_path;
+
 [region, anchor] = get_centered_region(frame, uv, config.landmark_search_size);
 region = double(region);
 
-cd fast-matlab-src
-cs = fast_corner_detect_9(region, 100);
-c = fast_nonmax(region, 100, cs);
-cd ..
+cd ../fast-matlab-src
+cs = fast_corner_detect_9(region, config.new_landmark_threshold);
+c = fast_nonmax(region, config.new_landmark_threshold, cs);
+cd ../tests
 
 all_uv = c';
 
