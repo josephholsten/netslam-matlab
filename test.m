@@ -1,10 +1,11 @@
 function test
 
 global config;
-config = Configuration();
 
 close all
 clear all
+
+config = Configuration();
 runtests tests
 
 end

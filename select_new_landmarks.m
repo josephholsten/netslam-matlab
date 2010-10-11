@@ -1,4 +1,6 @@
-function select_new_landmarks(frame)
+function success = select_new_landmarks(frame)
+
+global config;
 
 % Precondition: current landmarks should be predicted by now
 
@@ -7,10 +9,37 @@ old_landmarks = ...;
 num_old_landmarks = ...;
 num_required_landmarks = ...;
 total_landmarks = num_old_landmarks;
-
-tree = build_quadtree(old_landmarks);
+attempts = 0;
 
 while total_landmarks < num_required_landmarks
+  % quit if we've surpassed max attempts
+  attempts = attempts + 1;
+  if (attempts > config.max_search_attempts)
+    break;
+  end
+
+  % select search window; fail if any old landmarks inside it
+  uv = random_landmark_search_coords();
+  inside = points_inside_region(old_landmarks, uv, config.landmark_search_size);
+  if (size(inside, 2) ~= 0)
+    continue;
+  end
+
+  % append the new landmark, if one was found
+  [uv, found] = select_new_landmark_in_search_window(frame, uv)
+  if (found)
+    initialize_new_landmark(uv);
+    old_landmarks = [old_landmarks,uv];
+    total_landmarks = total_landmarks + 1;
+  end
+end
+
+success = (total_landmarks == num_required_landmarks);
+
+% NOTE: possible quad-tree algorithm follows
+
+%tree = build_quadtree(old_landmarks);
+%while total_landmarks < num_required_landmarks
   % - choose largest leaf of tree
   % - fail if largest leaf size < window+margin size
   % - get region inside leaf with appropriate margin
@@ -23,7 +52,7 @@ while total_landmarks < num_required_landmarks
   % - add feature to set
   % - bump total_landmarks
   % - split leaf by quadtree algorithm
-end
+%end
 
 % NOTES
 
@@ -34,9 +63,9 @@ end
 % a requested window size and just scan through, looking for a blank region -
 % though that probably fails due to being systematic
 
-% here's what davison does (basically, stupidly awful rejection sampling):
+% here's what davison does (basically, rejection sampling):
 % the 'excluded band' is half the patch size, plus one
-% the initializing box sie is (60,40)
+% the initializing box size is (60,40)
 % rho and std_rho = 1
 % 
 % - loop until max attempts passed or enough landmarks added:
