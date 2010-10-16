@@ -21,7 +21,7 @@ colormap gray;
 hold on;
 
 for i = 1:size(new_landmarks,2)
-  plot(new_landmarks(1,i), new_landmarks(2,i), 's', 'Markersize', config.landmark_width);
+  plot(new_landmarks(1,i), new_landmarks(2,i), 's', 'Markersize', config.landmark_width + 2);
 end
 
 hold off;

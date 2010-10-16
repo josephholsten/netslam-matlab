@@ -3,11 +3,11 @@ classdef Configuration
   % algorithm.
 
   properties
-    enable_distortion % whether radial distortion is used
+    enable_distortion       % whether radial distortion is used
     landmark_width
     landmark_half_width
-    frame_size % width, height
-    landmark_search_size % width, height
+    frame_size              % width, height
+    landmark_search_size    % width, height
     max_search_attempts
     required_landmarks_per_frame
     new_landmark_threshold

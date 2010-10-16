@@ -28,7 +28,7 @@ while total_landmarks < num_required_landmarks
     continue;
   end
 
-  % append the new landmark, if one was found
+  % append the new landmark, if one is found
   [uv, found] = select_new_landmark_in_search_window(frame, uv);
   if (found)
     initialize_new_landmark(frame, uv);
