@@ -1,6 +1,10 @@
-function advance_model(dt)
+function advance_model(model, dt)
 
-cam_p = cam_p + cam_v * dt;
-cam_q = qprod(cam_q, v2q(cam_w * dt));
+[p,q,v,w] = unpack_camera_state(model.state);
+
+p = p + v * dt;
+q = qprod(q, v2q(w * dt));
+
+pack_camera_state(model.state, p, q, v, w);
 
 end

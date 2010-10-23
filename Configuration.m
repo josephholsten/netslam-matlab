@@ -3,6 +3,7 @@ classdef Configuration
   % algorithm.
 
   properties
+    camera                  % camera model
     enable_distortion       % whether radial distortion is used
     landmark_width
     landmark_half_width
@@ -24,6 +25,7 @@ classdef Configuration
       obj.max_search_attempts = 50;
       obj.required_landmarks_per_frame = 20;
       obj.new_landmark_threshold = 100;
+      obj.camera = Camera([1 1], [0 0], [0 0]);
     end
   end
 end

@@ -9,6 +9,10 @@ classdef Camera
     distortion % Distortion matrix (2x1)
   end
   
+  properties (Dependent = true)
+    P
+  end
+  
   methods
     
     function obj = Camera(focal, center, distortion)
@@ -54,7 +58,7 @@ classdef Camera
       % 
       % TODO: test me
       
-      x = pinv(cam.P * C) * hom(u);
+      x = pinv(cam.P * C) * make_homogeneous(u);
       
       if nargin > 2
         t = repmat(C(:,3),1,size(x,2));
@@ -63,6 +67,8 @@ classdef Camera
         x = r - t;
         x(4,:) = ones(1,size(x,2));
       end
+      
+      x = make_not_homogeneous(x);
     end
     
     
@@ -71,7 +77,6 @@ classdef Camera
       % 
       % u: undistorted points
       % v: distorted points
-      global config;
       %if config.enable_distortion
         [n m] = size(u);
         k1 = cam.distortion(1);
@@ -99,7 +104,6 @@ classdef Camera
       %
       % v: distorted points
       % u: undistorted points    
-      global config;
       %if config.enable_distortion
         [n m] = size(v);
         k1 = cam.distortion(1);
@@ -113,6 +117,10 @@ classdef Camera
       %else
       %  u = v;
       %end
+    end
+    
+    function P = get.P(cam)
+      P = cam.projection;
     end
   end
 end

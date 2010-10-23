@@ -1,7 +1,6 @@
-function [uv, found] = select_new_landmark_in_search_window(frame, uv)
+function [uv, found] = select_new_landmark_in_search_window(model, frame, uv)
 
-global config;
-global base_path;
+config = model.config;
 
 [region, anchor] = get_centered_region(frame, uv, config.landmark_search_size);
 region = double(region);

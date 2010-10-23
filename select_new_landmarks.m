@@ -1,10 +1,9 @@
-function new_landmarks = select_new_landmarks(frame, old_landmarks)
+function new_landmarks = select_new_landmarks(model, frame, old_landmarks)
 
-global config;
+config = model.config;
 
 % Precondition: current landmarks should be predicted by now
 
-% TODO: initialize these from state
 new_landmarks = [];
 num_old_landmarks = size(old_landmarks, 2);
 num_required_landmarks = config.required_landmarks_per_frame;
@@ -21,7 +20,7 @@ while total_landmarks < num_required_landmarks
   end
 
   % select search window; fail if any old landmarks inside it
-  uv = random_landmark_search_coords();
+  uv = random_landmark_search_coords(model);
   inside = points_inside_region(old_landmarks, uv, config.landmark_search_size);
   if (size(inside, 2) ~= 0)
     num_aborted_searches = num_aborted_searches + 1;
@@ -29,9 +28,9 @@ while total_landmarks < num_required_landmarks
   end
 
   % append the new landmark, if one is found
-  [uv, found] = select_new_landmark_in_search_window(frame, uv);
+  [uv, found] = select_new_landmark_in_search_window(model, frame, uv);
   if (found)
-    initialize_new_landmark(frame, uv);
+    initialize_new_landmark(model, frame, uv);
     old_landmarks = [old_landmarks,uv];
     new_landmarks = [new_landmarks,uv];
     total_landmarks = total_landmarks + 1;

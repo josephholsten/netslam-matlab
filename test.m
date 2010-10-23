@@ -1,11 +1,10 @@
 function test
 
-global config;
-
 close all;
 clear all;
 
-config = Configuration();
+addpath([pwd, '/jacobians']);
+
 runtests tests;
 
 end
