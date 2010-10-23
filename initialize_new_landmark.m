@@ -7,7 +7,7 @@ function initialize_new_landmark(model, frame, uv)
 config = model.config;
 
 patch = get_centered_region(frame, uv, config.landmark_width);
-[p,q,v,w] = unpack_camera_state(model.state);
+[p,q,v,w] = model.unpack_camera_state();
 
 landmark = Landmark(model, patch, p, uv);
 model.state = [model.state; zeros(7,1)];

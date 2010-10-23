@@ -1,4 +1,4 @@
-classdef Camera
+classdef Camera < handle
   % Represents a pinhole-model camera with distortion.
   % This class does not model the position, orientation, etc. of the camera.
 

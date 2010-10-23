@@ -1,43 +1,34 @@
 function test_advance_model
-global cam_p
-global cam_q
-global cam_v
-global cam_w
-global cam_P
 
-cam_p = [0; 0; 0];
-cam_q = [1; 0; 0; 0];
-cam_v = [1; 1; 1];
-cam_w = [-pi/2; 0; 0];
-cam_P = eye(7);
+model = SlamModel();
 
-advance_model(1);
+p = [0; 0; 0];
+q = [1; 0; 0; 0];
+v = [1; 1; 1];
+w = [-pi/2; 0; 0];
 
-% camera pose vector
-assertElementsAlmostEqual([1; 1; 1], cam_p);
-% camera orientation quaternian
-assertElementsAlmostEqual([sqrt(2)/2; -sqrt(2)/2; 0; 0], cam_q);
-% linear camera velocity vector (v)
-assertElementsAlmostEqual([1; 1; 1], cam_v);
-% angular camera velocity quaternian (w)
-assertElementsAlmostEqual([-pi/2; 0; 0], cam_w);
-% % covariance
-% P = rand(7, 7);
-% P = P * P';
-% assertElementsAlmostEqual(P, cam_P);
+model.pack_camera_state(p, q, v, w);
 
-advance_model(1);
+[p,q,v,w] = model.unpack_camera_state();
+assertElementsAlmostEqual([0; 0; 0], p);
+assertElementsAlmostEqual([1; 0; 0; 0], q);
+assertElementsAlmostEqual([1; 1; 1], v);
+assertElementsAlmostEqual([-pi/2; 0; 0], w);
 
-% camera pose vector
-assertElementsAlmostEqual([2; 2; 2], cam_p);
-% camera orientation quaternian
-assertElementsAlmostEqual([0; -1; 0; 0], cam_q);
-% linear camera velocity vector (v)
-assertElementsAlmostEqual([1; 1; 1], cam_v);
-% angular camera velocity quaternian (w)
-assertElementsAlmostEqual([-pi/2; 0; 0], cam_w);
-% % covariance
-% P = rand(7, 7);
-% P = P * P';
-% assertElementsAlmostEqual(P, cam_P);
+advance_model(model, 1);
+
+[p,q,v,w] = model.unpack_camera_state();
+assertElementsAlmostEqual([1; 1; 1], p);
+assertElementsAlmostEqual([sqrt(2)/2; -sqrt(2)/2; 0; 0], q);
+assertElementsAlmostEqual([1; 1; 1], v);
+assertElementsAlmostEqual([-pi/2; 0; 0], w);
+
+advance_model(model, 1);
+
+[p,q,v,w] = model.unpack_camera_state();
+assertElementsAlmostEqual([2; 2; 2], p);
+assertElementsAlmostEqual([0; -1; 0; 0], q);
+assertElementsAlmostEqual([1; 1; 1], v);
+assertElementsAlmostEqual([-pi/2; 0; 0], w);
+
 end

@@ -8,5 +8,5 @@ if (theta < eps)
   q = [1 0 0 0]';
 else
   n = v / theta;
-  q = [cos(theta/2) sin(theta/2)*n]';
+  q = [cos(theta/2); sin(theta/2)*n];
 end
