@@ -1,3 +1,5 @@
 function print_frame_log()
 
-// TODO
+ % TODO: our output step!
+
+end

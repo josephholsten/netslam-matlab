@@ -1,3 +1,4 @@
+% Advance model by time dt
 function advance_model(model, dt)
 
 [p,q,v,w] = model.unpack_camera_state();

@@ -1,3 +1,5 @@
-function predict_landmarks()
+function predict_landmarks(model)
 
-// TODO
+% TODO
+
+end

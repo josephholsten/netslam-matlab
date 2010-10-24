@@ -11,5 +11,6 @@ a = m * t2;
 c = cos(a);
 s = sin(a);
 n = w / m;
+sm = s / m;
 
-J = [-t2 * s * n'; (n * n') * (t2 * c - s / m) + (s / m) * eye(3)];
+J = [-t2 * s * n'; (n * n') * (t2 * c - sm) + sm * eye(3)];
