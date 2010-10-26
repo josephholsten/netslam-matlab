@@ -29,7 +29,8 @@ k = config.camera.distortion;
 dydxv = dy_dxv(g, q);
 dydhd = dy_dhd(uv, q, c, f, k);
 
-Pa = eye(3); % diag(sig_pixel^2, sig_pixel^2, sig_inv^2)
+Pa = diag([config.std_pixel, config.std_pixel, config.std_inverse_distance]);
+
 Pn = dydxv * Pxv * dydxv' + dydhd * Pa * dydhd';
 
 P = [ Pxv        , Pxvy        , Pxv * dydxv';  ...

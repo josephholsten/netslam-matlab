@@ -27,7 +27,7 @@ y = y + y0;
 % TODO: use the template below and move away from teh built-in
 % normxcorr2 function. The code above is wrong because it might find
 % a result outside the actual search ellipse. Though honestly, is that
-% a problem?
+% a problem? YES.
 
 %chi_095_2 = 5.9915;
 %inv_S = inv(S);

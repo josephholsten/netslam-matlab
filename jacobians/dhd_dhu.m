@@ -1,4 +1,4 @@
-function J = DHD_DHU(d, c, k)
+function J = dhd_dhu(d, c, k)
 % DHD_DHU Jacobian of distorted image coordinates
 % with respsect to undistorted image coordinates.
 % d: distorted coordinates

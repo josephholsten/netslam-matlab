@@ -1,6 +1,8 @@
 function test_reproject_cb
 
-global P
+global model;
+
+model = SlamModel();
 
 P = [1 0 0 0; 0 1 0 0; 0 0 1 0];
 I1 = checkerboard(10);

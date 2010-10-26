@@ -11,4 +11,6 @@ h = ahp(4:6);  % direction vector (not necessarily normalized)
 q = ahp(7);    % inverse distance (sort of)
 p = a + h * q; % resolve point
 
+% TODO: check this equation against the AHP paper
+
 end

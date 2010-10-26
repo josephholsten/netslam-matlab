@@ -3,3 +3,6 @@ To run the tests:
 $ matlab -nodesktop -nosplash
 >> cd netslam-matlab
 >> test
+
+
+TODO: make notes of when model is packed vs. unpacked

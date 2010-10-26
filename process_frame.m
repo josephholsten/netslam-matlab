@@ -6,8 +6,8 @@ find_predicted_landmarks(model, frame);
 % update EKF
 h = found_predictions(model);
 z = observations(model);
-Q = process_noise();
-R = observation_noise();
+Q = model.config.process_noise;
+R = model.config.observation_noise;
 
 H = observation_jacobian(model);
 A = transition_jacobian(model, dt);
@@ -19,6 +19,7 @@ model.state = x;
 model.covariance = P;
 
 % select new landmarks in frame
+% TODO: use observed (rather than predicted) landmarks to rule out new landmark positions?
 select_new_landmarks(model, frame);
 
 end

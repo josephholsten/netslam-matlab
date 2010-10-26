@@ -8,7 +8,7 @@ region = double(region);
 cd ../fast-matlab-src
 cs = fast_corner_detect_9(region, config.new_landmark_threshold);
 c = fast_nonmax(region, config.new_landmark_threshold, cs);
-cd ../tests
+cd ../tests % TODO: no no no no no
 
 all_uv = c';
 

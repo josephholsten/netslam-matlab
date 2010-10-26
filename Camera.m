@@ -1,4 +1,4 @@
-classdef Camera < handle
+classdef Camera
   % Represents a pinhole-model camera with distortion.
   % This class does not model the position, orientation, etc. of the camera.
 
@@ -38,10 +38,8 @@ classdef Camera < handle
       % C: camera matrix of the form [R t; 0 0 0 1]
       % x: 3D point to project (optionally can be homogeneous)
       % u: 2D point in image plane, without distortion
-      %
-      % TODO: test me
       
-      u = unhom(cam.P * C * hom(x));
+      u = make_not_homogeneous(cam.P * C * make_homogeneous(x));
     end
     
     
@@ -55,15 +53,13 @@ classdef Camera < handle
       % u: 2D point in image plane, without distortion
       % d: distance to new 3D point from camera (optional)
       % x: calculated 3D point
-      % 
-      % TODO: test me
       
       x = pinv(cam.P * C) * make_homogeneous(u);
       
-      if nargin > 2
+      if nargin > 3
         t = repmat(C(:,3),1,size(x,2));
         r = x + t;
-        r = r * d ./ sqrt(r' * r)';
+        r = r * d ./ sqrt(dot(r,r));
         x = r - t;
         x(4,:) = ones(1,size(x,2));
       end
@@ -77,25 +73,21 @@ classdef Camera < handle
       % 
       % u: undistorted points
       % v: distorted points
-      %if config.enable_distortion
-        [n m] = size(u);
-        k1 = cam.distortion(1);
-        k2 = cam.distortion(2);
-        c = repmat(cam.center, 1, m);
-        p = u - c;
-        ru = sqrt([1 1] * (p .* p));
-        rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
-        for k=1:10
-          q = rd + k1 * rd.^3 + k2 * rd.^5 - ru;
-          q_p = 1 + 3 * k1 * rd.^2 + 5 * k2 * rd.^4;
-          rd = rd - q ./ q_p;
-        end
-        D = 1 + k1 * rd.^2 + k2 * rd.^4;
-        D = repmat(D, n, 1);
-        v = p ./ D + c;
-      %else
-      %  v = u;
-      %end
+      [n m] = size(u);
+      k1 = cam.distortion(1);
+      k2 = cam.distortion(2);
+      c = repmat(cam.center, 1, m);
+      p = u - c;
+      ru = sqrt([1 1] * (p .* p));
+      rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
+      for k=1:10
+        q = rd + k1 * rd.^3 + k2 * rd.^5 - ru;
+        q_p = 1 + 3 * k1 * rd.^2 + 5 * k2 * rd.^4;
+        rd = rd - q ./ q_p;
+      end
+      D = 1 + k1 * rd.^2 + k2 * rd.^4;
+      D = repmat(D, n, 1);
+      v = p ./ D + c;
     end
     
     
@@ -104,19 +96,15 @@ classdef Camera < handle
       %
       % v: distorted points
       % u: undistorted points    
-      %if config.enable_distortion
-        [n m] = size(v);
-        k1 = cam.distortion(1);
-        k2 = cam.distortion(2);
-        c = repmat(cam.center, 1, m);
-        p = v - c;
-        r = sqrt([1 1] * (p .* p));
-        D = 1 + k1 * r.^2 + k2 * r.^4;
-        D = repmat(D, n, 1);
-        u = p .* D + c;
-      %else
-      %  u = v;
-      %end
+      [n m] = size(v);
+      k1 = cam.distortion(1);
+      k2 = cam.distortion(2);
+      c = repmat(cam.center, 1, m);
+      p = v - c;
+      r = sqrt([1 1] * (p .* p));
+      D = 1 + k1 * r.^2 + k2 * r.^4;
+      D = repmat(D, n, 1);
+      u = p .* D + c;
     end
     
     function P = get.P(cam)

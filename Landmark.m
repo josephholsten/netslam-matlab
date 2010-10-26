@@ -4,8 +4,10 @@ classdef Landmark < handle
     patch
     ahp
     cam_pos
-    image_pos
     observed
+    observation
+    predicted
+    prediction
   end
   
   properties (Dependent = true)
@@ -20,7 +22,9 @@ classdef Landmark < handle
         obj.cam_pos = cam_pos;
         obj.estimate_pos(model, uv);
         obj.observed = false;
-        obj.image_pos = [];
+        obj.observation = [];
+        obj.predicted = false;
+        obj.prediction = [];
       end
     end
     
