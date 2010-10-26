@@ -1,11 +1,23 @@
-function process_frame(model, frame)
+function process_frame(model, frame, dt)
   
 % find old landmarks in frame
-if (size(predicted_landmarks, 1) > 0)
-  find_predicted_landmarks(frame);
+find_predicted_landmarks(model, frame);
 
-% update ekf model
-  
+% update EKF
+h = found_predictions(model);
+z = observations(model);
+Q = process_noise();
+R = observation_noise();
+
+H = observation_jacobian(model);
+A = transition_jacobian(model, dt);
+
+x = model.state;
+P = model.covariance;
+[x, P] = ekf_step(x, P, h, z, A, H, Q, R);
+model.state = x;
+model.covariance = P;
+
 % select new landmarks in frame
 select_new_landmarks(model, frame);
 

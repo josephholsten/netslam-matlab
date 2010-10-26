@@ -10,7 +10,7 @@ for i = 2:size(frames,1)
   timestamp += dt;
   advance_model(model, dt);
   predict_landmarks(model);
-  process_frame(model, image);
+  process_frame(model, image, dt);
   print_frame_log();
 end
 
