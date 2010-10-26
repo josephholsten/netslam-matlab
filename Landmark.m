@@ -1,9 +1,11 @@
-classdef Landmark
+classdef Landmark < handle
 
   properties
     patch
     ahp
     cam_pos
+    image_pos
+    observed
   end
   
   properties (Dependent = true)
@@ -16,7 +18,9 @@ classdef Landmark
       if nargin > 0
         obj.patch = patch;
         obj.cam_pos = cam_pos;
-        obj = obj.estimate_pos(model, uv);
+        obj.estimate_pos(model, uv);
+        obj.observed = false;
+        obj.image_pos = [];
       end
     end
     

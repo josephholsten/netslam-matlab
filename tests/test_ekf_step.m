@@ -24,7 +24,7 @@ PV = zeros(n, N);              % diagonal of P
 
 for k = 1:N
   z = h(s) + r * randn;                    % measurments
-  [x, P]  = ekf_step(f,x,P,h,z,Q,R);       % ekf 
+  [x, P]  = fake_ekf_step(f,x,P,h,z,Q,R);  % ekf 
 	sV(:,k) = s;                             % save actual state
   zV(:,k) = z;                             % save measurment
   xV(:,k) = x;                             % save estimate
