@@ -15,6 +15,7 @@ classdef Configuration
     observation_noise       % TODO
     std_pixel
     std_inverse_distance
+    figures_path
   end
   
   methods
@@ -30,6 +31,7 @@ classdef Configuration
       obj.camera = Camera([1 1], [0 0], [0 0]);
       obj.std_pixel = 1;
       obj.std_inverse_distance = 1;
+      obj.figures_path = 'figures';
     end
   end
 end
