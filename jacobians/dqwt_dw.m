@@ -5,6 +5,8 @@ function J = dqwt_dw(w, t)
 % t: time-step
 % J: 4x3 jacobian
 
+% MANUALLY VERIFIED
+
 m = norm(w);
 t2 = t / 2;
 a = m * t2;
