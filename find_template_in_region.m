@@ -10,6 +10,7 @@ h = pos;
 x = 0;
 y = 0;
 cc = 0;
+ts = floor(size(template,1)/2);
 
 if eig(S) > 100
   display('search ellipse too big');
@@ -17,8 +18,8 @@ if eig(S) > 100
   return;
 end
 
-half_w = 2 * sqrt(S(1,1));     % find maximum horizontal bound
-half_h = 2 * sqrt(S(2,2));     % find maximum vertical bound
+half_w = sqrt(chi_095_2 * S(1,1)) + ts;     % find maximum horizontal bound
+half_h = sqrt(chi_095_2 * S(2,2)) + ts;     % find maximum vertical bound
 
 y0 = max(1, floor(h(2) - half_h));
 y1 = min(size(image, 1), ceil(h(2) + half_h));
@@ -32,7 +33,7 @@ cc = cc(strip+1:end-strip,strip+1:end-strip);
 
 for i = 1:size(cc,1)
 for j = 1:size(cc,2)
-  uv = [i + x0 - 1; j + y0 - 1];
+  uv = [j + x0 - 1; i + y0 - 1];
   nu = uv - h;
   if (nu' * Si * nu) > chi_095_2
     cc(i,j) = 0;
