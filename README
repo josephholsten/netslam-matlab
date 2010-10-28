@@ -5,4 +5,13 @@ $ matlab -nodesktop -nosplash
 >> test
 
 
-TODO: make notes of when model is packed vs. unpacked
+To run the main program:
+
+1. Unpack davison's ic.tgz into /input/ and rename them to "[0-9]{6}.pgm"
+
+2. 
+$ matlab -nodesktop -nosplash
+>> cd netslam-matlab
+>> main
+
+3. Watch the fireworks

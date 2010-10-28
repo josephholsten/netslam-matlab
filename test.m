@@ -4,7 +4,7 @@ close all;
 clear all;
 
 addpath([pwd, '/jacobians']);
-% TODO: add fast feature dir to path?
+addpath([pwd, '/fast-matlab-src']);
 
 runtests tests;
 

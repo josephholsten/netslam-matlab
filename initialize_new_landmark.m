@@ -12,6 +12,7 @@ patch = get_centered_region(frame, uv, config.landmark_width);
 landmark = Landmark(model, patch, p, uv);
 model.state = [model.state; zeros(7,1)];
 model.landmarks = [model.landmarks; landmark];
+model.num_landmarks = model.num_landmarks + 1;
 
 % now we have to merge the new landmark into the covariance matrix
 

@@ -4,6 +4,11 @@ num_points = size(points, 2);
 center = reshape(center,2,1);
 region_size = reshape(region_size,2,1);
 
+if (num_points == 0)
+  inside = [];
+  return;
+end
+
 min = center - region_size / 2;
 max = center + region_size / 2;
 gt = points >= repmat(min, 1, num_points);

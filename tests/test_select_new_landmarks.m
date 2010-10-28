@@ -9,7 +9,7 @@ frame = imread('fixtures/rendered.tiff');
 frame = rgb2gray(frame(:,:,1:3));
 frame = imresize(frame, sz);
 
-new_landmarks = select_new_landmarks(model, frame, zeros(2,0));
+new_landmarks = select_new_landmarks(model, frame);
 
 assert(size(new_landmarks, 2) >= 5);
 

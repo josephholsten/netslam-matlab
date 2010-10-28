@@ -1,6 +1,6 @@
 function h = found_predictions(model)
 
-h = zeros(0, 1);
+h = zeros(0, 2);
 
 for i = 1:model.num_landmarks
   if model.landmarks(i).observed

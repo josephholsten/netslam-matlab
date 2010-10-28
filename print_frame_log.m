@@ -4,4 +4,6 @@ function print_frame_log(model, frame, the_figure, step)
 
 save_frame_figure(model, frame, the_figure, step);
 
+display(step);
+
 end

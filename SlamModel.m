@@ -6,6 +6,7 @@ classdef SlamModel < handle
     state
     covariance
     landmarks
+    num_landmarks
   end
   
   properties (Dependent = true)
@@ -19,13 +20,13 @@ classdef SlamModel < handle
         obj.config = config;
         obj.state = x;
         obj.covariance = P;
-        obj.landmarks = [];
       else
         obj.config = Configuration();
         obj.state = [0 0 0 1 0 0 0 0 0 0 0 0 0]';
         obj.covariance = eye(13);
-        obj.landmarks = [];
       end
+      obj.landmarks = [];
+      obj.num_landmarks = 0;
     end
     
     function C = get.C(model)

@@ -32,6 +32,8 @@ classdef Configuration
       obj.std_pixel = 1;
       obj.std_inverse_distance = 1;
       obj.figures_path = 'figures';
+      obj.process_noise = eye(13);
+      obj.observation_noise = eye(2);
     end
   end
 end

@@ -1,8 +1,10 @@
-function new_landmarks = select_new_landmarks(model, frame, old_landmarks)
+function new_landmarks = select_new_landmarks(model, frame)
 
 config = model.config;
 
 % Precondition: current landmarks should be predicted by now
+
+old_landmarks = observations(model)';
 
 new_landmarks = [];
 num_old_landmarks = size(old_landmarks, 2);

@@ -5,10 +5,10 @@ config = model.config;
 [region, anchor] = get_centered_region(frame, uv, config.landmark_search_size);
 region = double(region);
 
-cd ../fast-matlab-src
+%cd ../fast-matlab-src
 cs = fast_corner_detect_9(region, config.new_landmark_threshold);
 c = fast_nonmax(region, config.new_landmark_threshold, cs);
-cd ../tests % TODO: no no no no no
+%cd ../tests % TODO: no no no no no
 
 all_uv = c';
 
