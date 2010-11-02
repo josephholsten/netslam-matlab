@@ -5,11 +5,13 @@ avi = avifile(sprintf(path_to_avi), 'compression', 'None');
 for i = 1:num_frames
   fig = fopen(sprintf('%s/%06d.fig', path_to_figures, i), 'r');
   if fig ~= -1
+    h = openfig(sprintf('%s/%06d.fig', path_to_figures, i));
     frame = getframe(gcf);
     avi = addframe(avi, frame);
     fclose(fig);
-    close(frame);
+    close(h);
   end
+  display(i);
 end
 
 avi = close(avi);

@@ -8,14 +8,18 @@ angles = (0:2*pi/steps:2*pi)';
 
 x = [cos(angles) sin(angles)]' * sqrt(chi_095_2);
 
-if min(eig(C)) < 0
-    C = eye(2);
+if min(eig(S)) < 0
+    S = eye(2);
     color=[0 0 0];
 end
 
-K = chol(C)';
+K = chol(S)';
 
-y = K * x + [ones(1,steps)*uv(1); ones(1,steps) * uv(2)];
+display(uv);
+display(x);
+display(K);
+
+y = K * x + repmat(uv, 1, size(x,2));
 
 h = plot(y(1,:), y(2,:));
 set(h, 'Color', color, 'LineWidth', linewidth);

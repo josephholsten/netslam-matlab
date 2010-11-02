@@ -43,6 +43,11 @@ end
 
 success = (total_landmarks == num_required_landmarks);
 
+for i = 1:size(new_landmarks,2)
+  plot(new_landmarks(1,i), new_landmarks(2,i), 's', 'Markersize', config.landmark_width + 2);
+end
+%waitforbuttonpress;
+
 % NOTE: possible quad-tree algorithm follows
 
 %tree = build_quadtree(old_landmarks);

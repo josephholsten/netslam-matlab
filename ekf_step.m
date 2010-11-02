@@ -1,4 +1,4 @@
-function [x, P] = ekf_step(x, P, h, z, A, H, Q, R)
+function [x, P] = ekf_step(x, P, h, z, A, H, Q, R, do_cov_update)
 % EKF_STEP Extended Kalman Filter for nonlinear dynamic systems
 % Inputs:   f: function handle for f(x)
 %           x: "a priori" state estimate
@@ -33,7 +33,10 @@ if debug
   display('R: '); display(size(R));
 end
 
-P        = A * P * A' + Q;               % partial update
+if do_cov_update
+  P = A * P * A' + Q;
+end
+
 P12      = P * H';                       % cross covariance
 R        = chol(H * P12 + R);            % Cholesky factorization
 U        = P12 / R;                      % K=U/R'; Faster because of back substitution

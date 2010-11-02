@@ -1,4 +1,4 @@
-function J = dhd_dy(cam, d, y, q)
+function J = dhd_dy(cam, d, y, q, c)
 % DHD_DY Jacobian of distored image points with respect to landmark state
 % cam: camera configuration
 % d: distorted point
@@ -6,7 +6,10 @@ function J = dhd_dy(cam, d, y, q)
 % q: camera orientation quaternion
 % J: 2x7 jacobian
 
-u = cam.undistort(d);
-J = dhd_dhu(d) * dhu_dh(u, cam.focal) * dh_dy(y, q);
+p = ahp_to_euclidean(y);
+R = q2R(q);
+h = R' * (p - c);
+
+J = dhd_dhu(d, cam.focal, cam.center, cam.distortion) * dhu_dh(h, cam.focal) * dh_dy(y, q);
 
 end

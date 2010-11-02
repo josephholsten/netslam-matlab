@@ -1,4 +1,4 @@
-function J = dhd_dhu(d, c, k)
+function J = dhd_dhu(d, f, c, k)
 % DHD_DHU Jacobian of distorted image coordinates
 % with respsect to undistorted image coordinates.
 % d: distorted coordinates
@@ -6,6 +6,6 @@ function J = dhd_dhu(d, c, k)
 % k: distortion coefficients
 % J: 2x2 jacobian
 
-J = inv(dhu_dhd(d, c, k));
+J = inv(dhu_dhd(d, f, c, k));
 
 end

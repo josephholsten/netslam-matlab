@@ -1,26 +1,35 @@
 function process_frame(model, frame, dt)
 
+figure(model.main_figure);
+
+hold off;
+imagesc(frame);
+colormap gray;
+hold on;
+%waitforbuttonpress;
+
 if dt > 0
   % find old landmarks in frame
   find_predicted_landmarks(model, frame);
+  model.H = observation_jacobian(model);
 
   % update EKF
   h = found_predictions(model);
   z = observations(model);
 
-  H = observation_jacobian(model);
-  A = transition_jacobian(model, dt);
-
+  model.pack_landmarks();
   x = model.state;
   P = model.covariance;
+  A = model.A;
+  H = model.H;
 
-  Q = zeros(size(x,1), size(x,1));
-  Q(1:13,1:13) = model.config.process_noise;
   R = repmat(model.config.observation_noise, size(z,1), size(z,1));
 
-  [x, P] = ekf_step(x, P, h, z, A, H, Q, R);
+  [x, P] = ekf_step(x, P, h, z, A, H, model.Q, R, false);
   model.state = x;
   model.covariance = P;
+  
+  model.unpack_landmarks();
 end
 
 % select new landmarks in frame

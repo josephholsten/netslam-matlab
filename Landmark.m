@@ -8,6 +8,8 @@ classdef Landmark < handle
     observation
     predicted
     prediction
+    H
+    S
   end
   
   properties (Dependent = true)

@@ -7,6 +7,10 @@ classdef SlamModel < handle
     covariance
     landmarks
     num_landmarks
+    main_figure
+    H % observation jacobian
+    A % state transition jacobian
+    Q % process noise
   end
   
   properties (Dependent = true)
@@ -23,7 +27,7 @@ classdef SlamModel < handle
       else
         obj.config = Configuration();
         obj.state = [0 0 0 1 0 0 0 0 0 0 0 0 0]';
-        obj.covariance = eye(13);
+        obj.covariance = sparse(eye(13));
       end
       obj.landmarks = [];
       obj.num_landmarks = 0;
@@ -56,11 +60,15 @@ classdef SlamModel < handle
       % v: linear camera velocity (3x1)
       % w: angular camera velocity quaternion (4x1)
       model.pack_camera_state(p, q, v, w);
+      model.pack_landmarks();
+    end
+    
+    function pack_landmarks(model)
       state = model.state;
       j = 15;
       n = 7;
       for i = 1:size(model.landmarks)
-        state(j:j+n) = model.landmarks(i).ahp;
+        state(j:j+n-1) = model.landmarks(i).ahp;
         j = j + n;
       end
       model.state = state;
@@ -73,11 +81,15 @@ classdef SlamModel < handle
       % v: linear camera velocity (3x1)
       % w: angular camera velocity quaternion (4x1)
       [p q v w] = model.unpack_camera_state();
+      model.unpack_landmarks();
+    end
+    
+    function unpack_landmarks(model)
       j = 15;
       n = 7;
       state = model.state;
       for i = 1:size(model.landmarks,2)
-        model.landmarks(i).ahp = state(j:j+n);
+        model.landmarks(i).ahp = state(j:j+n-1);
         j = j + n;
       end
     end

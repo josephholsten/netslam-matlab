@@ -4,6 +4,11 @@ function J = dfxv_dxv(q,w,t)
 % w: camera angular velocity
 % t: time-step
 
+wt = w * t;
+display(t);
+display(w);
+display(wt);
+
 J = eye(13);
 J(1:3,8:10) = eye(3);
 J(4:7,4:7) = dq_dq(v2q(w * t));

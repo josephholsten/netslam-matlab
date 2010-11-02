@@ -3,9 +3,9 @@ function J = dh_dy(y, q)
 
 a = y(1:3);
 n = y(4:6);
-q = y(7);
 
 R = q2R(q);
+q = y(7);
 
 J = R * [zeros(3,3), q*eye(3), n];
 

@@ -9,7 +9,7 @@ for i = 1:10
   d = rand(2,1);
   f = @(x) cam.undistort(x);
   [u, Jest] = estimate_jacobian(f, d);
-  Jreal = dhu_dhd(d, cam.center, cam.distortion);
+  Jreal = dhu_dhd(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
 end
 
@@ -18,7 +18,7 @@ for i = 1:10
   u = rand(2,1);
   f = @(x) cam.distort(x);
   [d, Jest] = estimate_jacobian(f, u);
-  Jreal = dhd_dhu(d, cam.center, cam.distortion);
+  Jreal = dhd_dhu(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
 end
 

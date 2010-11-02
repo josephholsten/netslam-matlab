@@ -11,7 +11,7 @@ u = [-1 1];
 v = [-1 1];
 
 R1 = vrrotvec2mat([0 1 0 0]');
-R2 = vrrotvec2mat([0 1 0 pi/4]');
+R2 = vrrotvec2mat([0, 1, 0, pi/4]');
 
 t1 = [0 0 2]';
 t2 = [-2 0 4]';

@@ -75,17 +75,18 @@ classdef Camera
       k1 = cam.distortion(1);
       k2 = cam.distortion(2);
       c = repmat(cam.center, 1, m);
-      p = u - c;
+      F = repmat(cam.focal, 1, m);
+      p = (u - c) ./ F;
       ru = sqrt([1 1] * (p .* p));
       rd = ru ./ (1 + k1 * ru.^2 + k2 * ru.^4);
-      for k=1:10
+      for k=1:20
         q = rd + k1 * rd.^3 + k2 * rd.^5 - ru;
         q_p = 1 + 3 * k1 * rd.^2 + 5 * k2 * rd.^4;
         rd = rd - q ./ q_p;
       end
       D = 1 + k1 * rd.^2 + k2 * rd.^4;
       D = repmat(D, n, 1);
-      v = p ./ D + c;
+      v = (p ./ D) .* F + c;
     end
     
     
@@ -98,11 +99,12 @@ classdef Camera
       k1 = cam.distortion(1);
       k2 = cam.distortion(2);
       c = repmat(cam.center, 1, m);
-      p = v - c;
+      F = repmat(cam.focal, 1, m);
+      p = (v - c) ./ F;
       r = sqrt([1 1] * (p .* p));
       D = 1 + k1 * r.^2 + k2 * r.^4;
       D = repmat(D, n, 1);
-      u = p .* D + c;
+      u = p .* D .* F + c;
     end
     
     function P = get.P(cam)

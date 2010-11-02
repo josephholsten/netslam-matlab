@@ -8,6 +8,12 @@ function J = dqwt_dw(w, t)
 % MANUALLY VERIFIED
 
 m = norm(w);
+
+if m == 0
+  J = zeros(4,3);
+  return;
+end
+
 t2 = t / 2;
 a = m * t2;
 c = cos(a);

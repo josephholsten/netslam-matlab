@@ -13,6 +13,6 @@ function [x, P] = fake_ekf_step(f, x, P, h, z, Q, R)
 
 [fx, A] = estimate_jacobian(f, x);
 [hfx, H] = estimate_jacobian(h, fx);
-[x, P] = ekf_step(fx, P, hfx, z, A, H, Q, R);
+[x, P] = ekf_step(fx, P, hfx, z, A, H, Q, R, true);
 
 end

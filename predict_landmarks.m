@@ -1,20 +1,37 @@
-function predict_landmarks(model)
+function predict_landmarks(model, dt)
 
 config = model.config;
 cam = config.camera;
 C = model.C;
 
 for i = 1:model.num_landmarks
-  
-  p = model.landmarks(i).pos;
-  d = cam.distort(cam.project(C, p));
-  
+  L = model.landmarks(i);
+  d = cam.distort(cam.project(C, L.pos));
+  L.observed = false;
+
   if   d(1) > 0 && d(1) < config.frame_size(1) ...
     && d(2) > 0 && d(2) < config.frame_size(2)
-    model.landmarks(i).predicted = true;
-    model.landmarks(i).prediction = d;
+    L.predicted = true;
+    L.prediction = d;
   else
-    model.landmarks(i).predicted = false;
+    display('bad prediction:');
+    display(d);
+    L.predicted = false;
+  end
+end
+
+prediction_jacobians(model);
+P = model.covariance;
+
+for i = 1:model.num_landmarks
+  if L.predicted
+    L = model.landmarks(i);
+    H = L.H;
+    S = H * P * H' + config.observation_noise;
+    display(H);
+    display(P);
+    display(S);
+    L.S = S;
   end
 end
 
