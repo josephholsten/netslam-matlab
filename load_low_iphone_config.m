@@ -1,7 +1,7 @@
 function [model, numFrames, timestamps] = load_low_iphone_config
 
 model = SlamModel();
-cam = model.config.camera;
+config = model.config;
 
 scale = 2;
 
@@ -12,12 +12,11 @@ fy = 788.53 * scale;
 k1 = -0.024648;
 k2 = 5.276834;
 
-cam.distortion = [k1; k2];
-cam.focal = [fx; fy];
-cam.center = [Cx; Cy];
+cam = Camera([fx; fy], [Cx; Cy], [k1; k2]);
+config.camera = cam;
+config.frame_size = [1280; 720];
 
-model.config.camera = cam;
-model.config.frame_size = [1280; 720];
+model.config = config;
 
 numFrames = 620;
 timestamps = 1:numFrames;

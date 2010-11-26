@@ -5,7 +5,7 @@ function J = dqwt_dw(w, t)
 % t: time-step
 % J: 4x3 jacobian
 
-% MANUALLY VERIFIED
+% MANUALLY VERIFIED (REALLY)
 
 m = norm(w);
 

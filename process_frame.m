@@ -23,11 +23,16 @@ if dt > 0
   A = model.A;
   H = model.H;
 
-  R = repmat(model.config.observation_noise, size(z,1), size(z,1));
+  R = model.config.observation_noise;
 
   [x, P] = ekf_step(x, P, h, z, A, H, model.Q, R, false);
+  
   model.state = x;
   model.covariance = P;
+  
+  [p,q,v,w] = model.unpack_camera_state();
+  q = qnorm(q);
+  model.pack_camera_state(p,q,v,w);
   
   model.unpack_landmarks();
 end

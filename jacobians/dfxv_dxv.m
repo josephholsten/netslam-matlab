@@ -5,9 +5,10 @@ function J = dfxv_dxv(q,w,t)
 % t: time-step
 
 wt = w * t;
-display(t);
-display(w);
-display(wt);
+%display('In dfxv_dxv:');
+%display(t);
+%display(w);
+%display(wt);
 
 J = eye(13);
 J(1:3,8:10) = eye(3);

@@ -10,6 +10,7 @@ h = pos;
 x = 0;
 y = 0;
 cc = 0;
+m = 0;
 ts = floor(size(template,1)/2);
 
 if eig(S) > 100

@@ -1,6 +1,7 @@
 function main(model, frames, timestamps)
 
 clear all
+close all
 
 addpath([pwd, '/jacobians']);
 addpath([pwd, '/fast-matlab-src']);

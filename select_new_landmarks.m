@@ -5,6 +5,8 @@ config = model.config;
 % Precondition: current landmarks should be predicted by now
 
 old_landmarks = observations(model)';
+n = numel(old_landmarks) / 2;
+old_landmarks = reshape(old_landmarks, 2, n);
 
 new_landmarks = [];
 num_old_landmarks = size(old_landmarks, 2);
@@ -30,6 +32,7 @@ while total_landmarks < num_required_landmarks
   end
 
   % append the new landmark, if one is found
+  draw_search_window(model, uv);
   [uv, found] = select_new_landmark_in_search_window(model, frame, uv);
   if (found)
     initialize_new_landmark(model, frame, uv);

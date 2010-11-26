@@ -65,7 +65,7 @@ classdef SlamModel < handle
     
     function pack_landmarks(model)
       state = model.state;
-      j = 15;
+      j = 14;
       n = 7;
       for i = 1:size(model.landmarks)
         state(j:j+n-1) = model.landmarks(i).ahp;
@@ -85,7 +85,7 @@ classdef SlamModel < handle
     end
     
     function unpack_landmarks(model)
-      j = 15;
+      j = 14;
       n = 7;
       state = model.state;
       for i = 1:size(model.landmarks,2)

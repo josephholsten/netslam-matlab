@@ -13,40 +13,27 @@ function [x, P] = ekf_step(x, P, h, z, A, H, Q, R, do_cov_update)
 %           P: "a posteriori" state covariance
 %
 
-debug = false;
-
-if debug
-  display('x: '); display(size(x));
-end
-
 if size(z,1) == 0
   return;
-end
-
-if debug
-  display('z: '); display(size(z));
-  display('h: '); display(size(h));
-  display('A: '); display(size(A));
-  display('P: '); display(size(P));
-  display('H: '); display(size(H));
-  display('Q: '); display(size(Q));
-  display('R: '); display(size(R));
 end
 
 if do_cov_update
   P = A * P * A' + Q;
 end
 
-P12      = P * H';                       % cross covariance
-R        = chol(H * P12 + R);            % Cholesky factorization
-U        = P12 / R;                      % K=U/R'; Faster because of back substitution
+%XXX
+display(H)
+display(R)
 
-if debug
-  display('R^T: '); display(size(R'));
-  display('U: '); display(size(U));
-end
-
-x        = x + U * (R' \ (z - h));       % Back substitution to get state update
+P12      = P * H'                        % cross covariance
+R        = chol(H * P12 + R)             % Cholesky factorization
+U        = P12 / R                       % K=U/R'; Faster because of back substitution
+z
+h
+x_       = U * (R' \ (z - h));
+x        = x + x_;                       % Back substitution to get state update
 P        = P - U * U';                   % Covariance update, U*U'=P12/R/R'*P12'=K*P12.
+
+display(x_); % XXX
 
 end

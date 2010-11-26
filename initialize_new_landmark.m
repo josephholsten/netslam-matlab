@@ -22,36 +22,36 @@ Pxvy = P(1:13, 14:end);
 Pyxv = P(14:end, 1:13);
 Py = P(14:end, 14:end);
 
-display('Merging landmark into covariance');
+%display('Merging landmark into covariance');
 
-display(Pxv);
-display(Pxvy);
-display(Pyxv);
-display(Py);
+%display(Pxv);
+%display(Pxvy);
+%display(Pyxv);
+%display(Py);
 
 g = landmark.pos;
 c = config.camera.center;
 f = config.camera.focal;
 k = config.camera.distortion;
 
-display(g);
-display(c);
-display(f);
-display(k);
+%display(g);
+%display(c);
+%display(f);
+%display(k);
 
 dydxv = dy_dxv(g, q);
 dydhd = dy_dhd(uv, q, c, f, k);
 
-display(dydxv);
-display(dydhd);
+%display(dydxv);
+%display(dydhd);
 
 Pa = diag([config.std_pixel, config.std_pixel, config.std_inverse_distance]);
 
-display(Pa);
+%display(Pa);
 
 Pn = dydxv * Pxv * dydxv' + dydhd * Pa * dydhd';
 
-display(Pn);
+%display(Pn);
 
 P = [ Pxv        , Pxvy        , Pxv * dydxv';  ...
       Pyxv       , Py          , Pyxv * dydxv'; ...

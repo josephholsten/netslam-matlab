@@ -15,9 +15,10 @@ end
 
 K = chol(S)';
 
-display(uv);
-display(x);
-display(K);
+%display('In plot_uncertainty_ellipse:');
+%display(uv);
+%display(x);
+%display(K);
 
 y = K * x + repmat(uv, 1, size(x,2));
 
