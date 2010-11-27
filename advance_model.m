@@ -6,11 +6,11 @@ function advance_model(model, dt)
 p = p + v * dt;
 q = qprod(q, v2q(w * dt));
 
-display('New state:');
-display(p);
-display(q);
-display(v);
-display(w);
+%display('New state:');
+%display(p);
+%display(q);
+%display(v);
+%display(w);
 
 model.pack_camera_state(p, q, v, w);
 

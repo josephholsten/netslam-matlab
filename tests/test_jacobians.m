@@ -10,7 +10,9 @@ for i = 1:10
   f = @(x) cam.undistort(x);
   [u, Jest] = estimate_jacobian(f, d);
   Jreal = dhu_dhd(d, cam.focal, cam.center, cam.distortion);
+  Jdav = davison_dhu_dhd(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
+  assertElementsAlmostEqual(Jreal, Jdav);
 end
 
 % dhd / dhu
@@ -19,7 +21,9 @@ for i = 1:10
   f = @(x) cam.distort(x);
   [d, Jest] = estimate_jacobian(f, u);
   Jreal = dhd_dhu(d, cam.focal, cam.center, cam.distortion);
+  Jdav = davison_dhd_dhu(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
+  assertElementsAlmostEqual(Jreal, Jdav);
 end
 
 % dnormq / dq
@@ -38,7 +42,9 @@ for i = 1:10
   f = @(x) q2R(x) * g;
   [Rg, Jest] = estimate_jacobian(f, q);
   Jreal = dRg_dq(g, q);
+  Jdav = davison_dRg_dq(g, q);
   assertElementsAlmostEqual(Jreal, Jest);
+  assertElementsAlmostEqual(Jreal, Jdav);
 end
 
 % dqc / dq
@@ -75,9 +81,11 @@ for i = 1:10
   w = rand(3,1);
   t = rand;
   f = @(x) v2q(x * t);
-  [q, Jest] = estimate_jacobian(f, w);
+  %[q, Jest] = estimate_jacobian(f, w);
   Jreal = dqwt_dw(w, t);
+  Jdav = davison_dqwt_dw(w, t);
   %assertElementsAlmostEqual(Jreal, Jest); % FAILS due to estimator sucking
+  assertElementsAlmostEqual(Jreal, Jdav);
 end
 
 % dq / dwt

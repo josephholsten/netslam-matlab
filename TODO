@@ -1,0 +1,2 @@
+- normalize quaternion after every step; see davison
+- include dnormq_dq somewhere; see davison
