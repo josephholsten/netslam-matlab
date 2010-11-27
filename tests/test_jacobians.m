@@ -13,6 +13,7 @@ for i = 1:10
   Jdav = davison_dhu_dhd(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
   assertElementsAlmostEqual(Jreal, Jdav);
+  test_jac(f, d, Jreal);
 end
 
 % dhd / dhu
@@ -24,6 +25,7 @@ for i = 1:10
   Jdav = davison_dhd_dhu(d, cam.focal, cam.center, cam.distortion);
   assertElementsAlmostEqual(Jreal, Jest);
   assertElementsAlmostEqual(Jreal, Jdav);
+  test_jac(f, u, Jreal);
 end
 
 % dnormq / dq
