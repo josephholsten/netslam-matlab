@@ -5,5 +5,11 @@ function test_jac(f, x, J_actual)
 y = f(x);
 t = @(z) f(z) - y;
 [X,FVAL,EXITFLAG,OUTPUT,J] = fsolve(t, x, optimset('Display', 'off', 'Algorithm', 'levenberg-marquardt'));
-%[X,FVAL,EXITFLAG,OUTPUT,J] = fsolve(t, x, optimset('Algorithm', 'levenberg-marquardt'));
-assert(norm(J - J_actual) < 1.0e-07);
+err = norm(J - J_actual);
+tol = 1.0e-07;
+if(err > tol)
+  display(J_actual);
+  display(J);
+  display(err);
+end
+assert(err < tol);

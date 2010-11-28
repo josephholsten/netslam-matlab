@@ -11,6 +11,6 @@ fx = f(1);
 fy = f(2);
 
 J = [ fx/z, 0, -fx*x/(z*z); ...
-      fy/z, 0, -fy*y/(z*z) ];
+      0, fy/z, -fy*y/(z*z) ];
 
 end

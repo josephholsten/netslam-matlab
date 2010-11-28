@@ -39,7 +39,7 @@ k = config.camera.distortion;
 %display(f);
 %display(k);
 
-dydxv = dy_dxv(g, q);
+dydxv = dy_dxv(g, p, q);
 dydhd = dy_dhd(uv, q, c, f, k);
 
 %display(dydxv);
