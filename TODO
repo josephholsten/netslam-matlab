@@ -1,2 +1,3 @@
 - normalize quaternion after every step; see davison
 - include dnormq_dq somewhere; see davison
+- fix 5 jacobian bugs
