@@ -10,4 +10,8 @@ function J = dy_dhd(d, q, c, f, k)
 Jp = dyp_dgw() * dgw_dgc(q) * dgc_dhu(f) * dhu_dhd(d, f, c, k);
 J = [Jp zeros(6,1); zeros(1,2) 1];
 
+if any(isnan(J))
+  display('NaN detected in dy_dhd!');
+end
+
 end

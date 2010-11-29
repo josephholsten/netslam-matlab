@@ -22,3 +22,9 @@ n = w / m;
 sm = s / m;
 
 J = [-t2 * s * n'; (n * n') * (t2 * c - sm) + sm * eye(3)];
+
+if any(isnan(J))
+  display('NaN detected in dqwt_dw!');
+end
+
+end

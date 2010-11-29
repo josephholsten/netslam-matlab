@@ -6,5 +6,8 @@ function J = dq_dwt(q, w, t)
 
 J = dqaqb_dqb(q) * dqwt_dw(w, t);
 
+if any(isnan(J))
+  display('NaN detected in dq_dwt!');
 end
 
+end

@@ -9,4 +9,8 @@ q = y(7);
 
 J = R * [zeros(3,3), q*eye(3), n];
 
+if any(isnan(J))
+  display('NaN detected in dh_dy!');
+end
+
 end

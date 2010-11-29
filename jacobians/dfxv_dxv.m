@@ -26,4 +26,8 @@ z = q(4);
 
 J = [w -x -y -z; x w z -y; y -z w x; z y -x w];
 
+if any(isnan(J))
+  display('NaN detected in dfxv_dxv!');
+end
+
 end

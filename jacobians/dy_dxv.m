@@ -7,4 +7,8 @@ function J = dy_dxv(g, a, q)
 
 J = [dy_dr() dy_dq(g, a, q) zeros(7,6)];
 
+if any(isnan(J))
+  display('NaN detected in dy_dxv!');
+end
+
 end

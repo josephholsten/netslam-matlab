@@ -4,4 +4,8 @@ function J = dqc_dq()
 
 J = diag([1, -1, -1, -1]);
 
+if any(isnan(J))
+  display('NaN detected in dqc_dq!');
+end
+
 end

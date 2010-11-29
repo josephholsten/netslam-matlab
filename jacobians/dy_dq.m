@@ -7,4 +7,8 @@ function J = dy_dq(g, a, q)
 
 J = [zeros(3,4); dRg_dq(g - a, q); zeros(1,4)];
 
+if any(isnan(J))
+  display('NaN detected in dy_dq!');
+end
+
 end

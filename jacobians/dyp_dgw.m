@@ -5,4 +5,8 @@ function J = dyp_dgw
 
 J = [zeros(3,3); eye(3)];
 
+if any(isnan(J))
+  display('NaN detected in dyp_dgw!');
+end
+
 end

@@ -8,4 +8,8 @@ function J = dhd_dhu(d, f, c, k)
 
 J = inv(dhu_dhd(d, f, c, k));
 
+if any(isnan(J))
+  display('NaN detected in dhd_dhu!');
+end
+
 end

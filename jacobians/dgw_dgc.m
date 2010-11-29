@@ -7,4 +7,8 @@ function J = dgw_dgc(q)
 
 J = q2R(q);
 
+if any(isnan(J))
+  display('NaN detected in dgw_dgc!');
+end
+
 end

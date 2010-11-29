@@ -13,4 +13,8 @@ fy = f(2);
 J = [ fx/z, 0, -fx*x/(z*z); ...
       0, fy/z, -fy*y/(z*z) ];
 
+if any(isnan(J))
+  display('NaN detected in dhu_dh!');
+end
+
 end

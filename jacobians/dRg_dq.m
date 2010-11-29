@@ -17,4 +17,8 @@ dR_dz = 2 * [-z -w  x; w -z  y;  x  y  z];
 
 J = [dR_dw * g, dR_dx * g, dR_dy * g, dR_dz * g];
 
+if any(isnan(J))
+  display('NaN detected in dRg_dq!');
+end
+
 end

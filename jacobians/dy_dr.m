@@ -4,4 +4,8 @@ function J = dy_dr
 
 J = [eye(3); zeros(4,3)];
 
+if any(isnan(J))
+  display('NaN detected in dy_dr!');
+end
+
 end

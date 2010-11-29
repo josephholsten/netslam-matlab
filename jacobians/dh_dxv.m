@@ -7,4 +7,8 @@ dh_dc = -R';
 
 J = [dh_dc, dh_dq(q, p, c), zeros(3,6)];
 
+if any(isnan(J))
+  display('NaN detected in dh_dxv!');
+end
+
 end

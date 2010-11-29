@@ -12,4 +12,8 @@ h = R' * (p - c);
 
 J = dhd_dhu(d, cam.focal, cam.center, cam.distortion) * dhu_dh(h, cam.focal) * dh_dy(y, q);
 
+if any(isnan(J))
+  display('NaN detected in dhd_dhu!');
+end
+
 end

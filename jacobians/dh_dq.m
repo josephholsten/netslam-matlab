@@ -8,4 +8,8 @@ function J = dh_dq(q, p, c)
 
 J = dRg_dq(p - c, qconj(q)) * dqc_dq();
 
+if any(isnan(J))
+  display('NaN detected in dh_dq!');
+end
+
 end

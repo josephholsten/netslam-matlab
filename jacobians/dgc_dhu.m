@@ -6,4 +6,8 @@ function J = dgc_dhu(f)
 
 J = [inv(f(1)) 0; 0 inv(f(2)); 0 0];
 
+if any(isnan(J))
+  display('NaN detected in dgc_dhu!');
+end
+
 end

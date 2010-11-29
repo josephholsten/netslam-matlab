@@ -14,4 +14,8 @@ J = [w -x -y -z; ...
      y  z  w -x; ...
      z -y  x  w];
 
+if any(isnan(J))
+ display('NaN detected in dqaqb_dqb!');
+end
+
 end

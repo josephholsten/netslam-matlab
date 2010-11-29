@@ -12,4 +12,8 @@ dhd_dh = dhd_dhu(d, cam.focal, cam.center, k) * dhu_dh(h, f);
 
 J = [dhd_dh * (-R'), dhd_dh * dh_dq(q, p, c), zeros(2,6)];
 
+if any(isnan(J))
+  display('NaN detected in dhd_dxv!');
+end
+
 end
