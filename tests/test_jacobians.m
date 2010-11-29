@@ -9,8 +9,8 @@ cam.distortion = [2.0e-2; -1.0e-6];
 for i = 1:10
   d = rand(2,1);
   f = @(x) cam.undistort(x);
-  %Jreal = dhu_dhd(d, cam.focal, cam.center, cam.distortion); % TODO: BUG (something to do w/ focals being non-1)
-  %test_jac(f, d, Jreal);
+  Jreal = dhu_dhd(d, cam.focal, cam.center, cam.distortion);
+  test_jac(f, d, Jreal);
 end
 
 % dhd / dhu
@@ -18,8 +18,8 @@ for i = 1:10
   u = rand(2,1);
   f = @(x) cam.distort(x);
   d = f(u);
-  %Jreal = dhd_dhu(d, cam.focal, cam.center, cam.distortion); % TODO: BUG (fixing dhu/dhd should fix this)
-  %test_jac(f, u, Jreal);
+  Jreal = dhd_dhu(d, cam.focal, cam.center, cam.distortion);
+  test_jac(f, u, Jreal, 1.0e-06);
 end
 
 % dnormq / dq
