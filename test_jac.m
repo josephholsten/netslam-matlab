@@ -10,6 +10,8 @@ tol = 1.0e-07;
 if(err > tol)
   display(J_actual);
   display(J);
+  diff = J - J_actual;
+  display(diff);
   display(err);
 end
 assert(err < tol);

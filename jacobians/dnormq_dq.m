@@ -3,7 +3,7 @@ function J = dnormq_dq(q)
 % q: quaternion, denormal
 % J: 4x4 jacobian
 
-n = norm(q);
+n = 1 / norm(q);
 J = n * (eye(4) - n * n * (q * q'));
 
 end

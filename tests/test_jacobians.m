@@ -27,7 +27,7 @@ for i = 1:10
   q = rand(4,1);
   f = @(x) qnorm(x);
   Jreal = dnormq_dq(q);
-  %test_jac(f, q, Jreal); % TODO: BUG
+  test_jac(f, q, Jreal);
 end
 
 % dRg / dq
