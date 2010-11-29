@@ -13,8 +13,6 @@ err = norm(J - J_actual);
 if(err > tol)
   display(J_actual);
   display(J);
-  div = J ./ J_actual;
-  display(div);
   display(err);
 end
 assert(err < tol);

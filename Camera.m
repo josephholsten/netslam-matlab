@@ -31,7 +31,6 @@ classdef Camera
       end
     end
     
-    
     function [u] = project(cam, C, x)
       % PROJECT Project a point x onto the image plane without distortion.
       %
