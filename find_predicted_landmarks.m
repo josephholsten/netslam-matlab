@@ -11,9 +11,15 @@ for i = 1:model.num_landmarks
       model.landmarks(i).observation = z;
       plot(z(1), z(2), 'r+', 'Markersize', 5);
       any_found = true;
+      model.landmarks(i).hits = model.landmarks(i).hits + 1;
+    else
+      model.landmarks(i).observed = false;
+      model.landmarks(i).misses = model.landmarks(i).misses + 1;
     end
   end
 end
+
+model.throw_away_bad_landmarks();
 
 %if any_found
 %  waitforbuttonpress;

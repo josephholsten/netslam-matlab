@@ -1,4 +1,4 @@
-function ahp = euclidean_to_ahp(p, a)
+function ahp = euclidean_to_ahp(p, a, d)
 % EUCLIDEAN_TO_AHP converts a euclidean point to anchored-homogeneous-point form, using
 % the optionally provided anchor point (defaults to the origin [0 ...]).
 % [a h q] = euclidean_to_ahp(p, [a = [0 ...]])
@@ -11,6 +11,10 @@ if nargin < 2
 	a = zeros(size(p));
 end
 
-ahp = [a; (p - a); 1];
+if nargin < 3
+  d = 1;
+end
+
+ahp = [a; (p - a) * d; 1 / d];
 
 end

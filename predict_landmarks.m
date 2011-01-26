@@ -28,6 +28,7 @@ P = model.covariance;
 %display('In predict_landmarks:');
 
 for i = 1:model.num_landmarks
+  L = model.landmarks(i);
   if L.predicted
     L = model.landmarks(i);
     H = L.H;

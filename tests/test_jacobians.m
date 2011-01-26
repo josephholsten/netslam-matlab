@@ -110,10 +110,10 @@ for i = 1:10
   q_ = rand;
   q = qnorm(rand(4,1));
   c = rand(3,1);
-  f = @(x) q2R(q) * (a + x(4:6) * x(7) - c);
+  f = @(x) q2R(q) * (ahp_to_euclidean([a; x(4:7)]) - c);
   y = [a; n; q_];
   Jreal = dh_dy(y, q);
-  test_jac(f, y, Jreal);
+  test_jac(f, y, Jreal, 1.0e-3);
 end
 
 % dy / dq

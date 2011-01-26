@@ -10,15 +10,15 @@ x = [cos(angles) sin(angles)]' * sqrt(chi_095_2);
 
 if min(eig(S)) < 0
     S = eye(2);
-    color=[0 0 0];
+    color = [0 0 0];
 end
 
 K = chol(S)';
 
-%display('In plot_uncertainty_ellipse:');
-%display(uv);
-%display(x);
-%display(K);
+% display('In plot_uncertainty_ellipse:');
+% display(uv);
+% display(x);
+% display(K);
 
 y = K * x + repmat(uv, 1, size(x,2));
 
